@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #ff4500;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+    background: #343a40;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    position: relative; /* For positioning the pseudo-elements */
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    position: relative; /* Necessary for the positioning of the underline */
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 50%; /* Center the line */
+    bottom: -5px; /* Position below the text */
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background: #ff4500; /* Color of the underline */
+    transition: width 0.3s ease, left 0.3s ease; /* Smooth transition */
+}
+
+nav a:hover::after {
+    width: 100%; /* Full width on hover */
+    left: 0; /* Align to the left */
+}
+
+nav a:hover {
+    color: #ff4500; /* Change text color on hover */
+}
+
+        .section {
+            padding: 20px;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-item h3 {
+            margin: 10px;
+            font-size: 20px;
+        }
+
+        .menu-item p {
+            margin: 10px;
+            color: #555;
+        }
+
+        .menu-item button {
+            background: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .menu-item button:hover {
+            background: #e03e00;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .contact-form button {
+            background: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .contact-form button:hover {
+            background: #e03e00;
+        }
+
+        footer {
+            text-align: center;
+            background: #343a40;
+            color: white;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+
+
+        footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-links, .footer-about, .footer-contact, .footer-social {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-links h3, 
+.footer-about h3, 
+.footer-contact h3, 
+.footer-social h3 {
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin: 5px 0;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-social a {
+    margin: 0 10px;
+}
+
+.footer-social img {
+    width: 24px; /* adjust size */
+    height: 24px; /* adjust size */
+}
+
+footer p {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+        .special-pizzas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .special-pizza {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .special-pizza img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .special-pizza h3 {
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Pizza Delight</h1>
+        <p>Your favorite pizza, just a click away!</p>
+    </header>
+
+    <nav>
+        <a href="#" onclick="showSection('home')">Home</a>
+        <a href="#" onclick="showSection('menu')">Menu</a>
+        <a href="#" onclick="showSection('contact')">Contact</a>
+    </nav>
+
+    <div id="home" class="section active">
+        <h2>Our Special Pizzas</h2>
+        <div class="special-pizzas">
+            <div class="special-pizza">
+                <img src="ds1.avif" alt="Special Pizza 1">
+                <h3>Cheesy Delight</h3>
+            </div>
+            <div class="special-pizza">
+                <img src="ds2.avif" alt="Special Pizza 2">
+                <h3>BBQ Chicken</h3>
+            </div>
+            <div class="special-pizza">
+                <img src="ds3.webp" alt="Special Pizza 3">
+                <h3>Veggie Supreme</h3>
+            </div>
+            <div class="special-pizza">
+                <img src="ds4.jpg" alt="Special Pizza 4">
+                <h3>Pepperoni Feast</h3>
+            </div>
+            <div class="special-pizza">
+                <img src="ds6.jpg" alt="Special Pizza 5">
+                <h3>Spicy Jalapeno</h3>
+            </div>
+            <div class="special-pizza">
+                <img src="ds5.jpg" alt="Special Pizza 6">
+                <h3>Margherita Classic</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu" class="section">
+        <h2>Our Menu</h2>
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search for a pizza..." onkeyup="filterMenu()">
+        <div class="menu" id="menu-items">
+            <!-- Menu items here, include 25 items -->
+            <div class="menu-item">
+                <img src="ds1.avif" alt="Pizza">
+                <h3>Margherita Pizza</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds2.avif" alt="Pizza">
+                <h3> Cheesy Delight</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds4.jpg" alt="Pizza">
+                <h3>BBQ Chicken</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('saad Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds3.webp" alt="Pizza">
+                <h3>paproni pizza</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds5.jpg" alt="Pizza">
+                <h3>fajita Pizza</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds6.jpg" alt="Pizza">
+                <h3>Veggie Supreme</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds8.jpg" alt="Pizza">
+                <h3>Spicy Jalapeno</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds9.jpg" alt="Pizza">
+                <h3>Margherita Pizza</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds10.jpg" alt="Pizza">
+                <h3>BBQ Chicken</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds11.jpg" alt="Pizza">
+                <h3>Margherita Pizza</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <!-- Repeat similar items for 25 pizzas -->
+            <div class="menu-item">
+                <img src="ds12.jpg" alt="Pizza">
+                <h3>bbq Chicken</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+            <div class="menu-item">
+                <img src="ds3.webp" alt="Pizza">
+                <h3>Margherita Pizza</h3>
+                <p>Classic delight with 100% real mozzarella cheese.</p>
+                <button onclick="openOrderForm('Margherita Pizza')">Order Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="order-form" class="section">
+        <h2>Order Your Pizza</h2>
+        <form class="contact-form">
+            <label for="pizza-name">Pizza Name</label>
+            <input type="text" id="pizza-name" >
+
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" placeholder="Enter quantity" required>
+
+            <label for="address">Delivery Address</label>
+            <textarea id="address" rows="3" placeholder="Enter delivery address" required></textarea>
+
+            <button type="button" onclick="submitOrder()">Submit Order</button>
+        </form>
+    </div>
+
+    <div id="contact" class="section">
+        <h2>Contact Us</h2>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+    
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+    
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" placeholder="Your message" required></textarea>
+    
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Pizza Delight. All Rights Reserved.</p>
+    </footer>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the form from reloading the page
+            alert("Your message has been sent successfully!");
+        }
+    
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    
+        function openOrderForm(pizzaName) {
+            document.getElementById('pizza-name').value = pizzaName;
+            showSection('order-form');
+        }
+    
+        function submitOrder() {
+            alert("Your order has been placed successfully! It will reach you within 30 minutes.");
+            showSection('home');
+        }
+    
+        function filterMenu() {
+            let searchValue = document.getElementById('search-bar').value.toLowerCase();
+            let menuItems = document.querySelectorAll('.menu-item');
+            
+            menuItems.forEach(item => {
+                let pizzaName = item.querySelector('h3').textContent.toLowerCase();
+                if (pizzaName.includes(searchValue)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+    
